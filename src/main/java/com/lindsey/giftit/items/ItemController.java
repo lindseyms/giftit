@@ -27,6 +27,11 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.OK).body(itemService.getAllItemsByUsername(username));
     }
 
+    @GetMapping(value = "/id/{id}", produces = "application/json")
+    public ResponseEntity getItemById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(itemService.getItemById(id));
+    }
+
     @DeleteMapping(value = "remove/{id}") //figure out if this needs to go here or in the userservice
     public ResponseEntity removeItem(@PathVariable Long id){
         itemService.removeItem(id);

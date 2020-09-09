@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -38,10 +39,13 @@ public class UserEntity {
     private String password;
     //private String confirmPassword;
 
-//    @ManyToMany//learn how to use this
-//    private List<UserEntity> friendsList;
-
     @OneToMany
     @JoinColumn(name = "username")
     private List<ItemEntity> itemsList;
+
+    @JoinTable(name = "friends", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "friend_id", referencedColumnName = "id", nullable = false)})
+    @ManyToMany
+    private List<UserEntity> friendsList;
 }

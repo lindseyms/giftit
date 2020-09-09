@@ -22,7 +22,7 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.createNewItem(itemDTO));
     }
 
-    @GetMapping(value = "username/{username}", produces = "application/json")
+    @GetMapping(value = "/username/{username}", produces = "application/json")
     public ResponseEntity getAllItemsByUsername(@PathVariable String username){
         return ResponseEntity.status(HttpStatus.OK).body(itemService.getAllItemsByUsername(username));
     }
@@ -42,5 +42,7 @@ public class ItemController {
     public ResponseEntity constraintViolation(ConstraintViolationException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data provided");
     }
+
+
 
 }

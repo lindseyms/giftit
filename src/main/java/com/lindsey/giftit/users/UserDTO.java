@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -23,7 +24,8 @@ public class UserDTO implements Serializable {
     private String password;
     //private String confirmPassword;
 
-//    private List<UserEntity> friendsList;
     private List<ItemDTO> itemsList;
+    private List<UserDTO> friendsList;
+
 
 }

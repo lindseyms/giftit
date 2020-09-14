@@ -22,10 +22,10 @@ public class UserDTO implements Serializable {
     private String username;
     private String email;
     private String password;
-    //private String confirmPassword;
+    private String confirmPassword;
 
-    private List<ItemDTO> itemsList;
-    private List<UserDTO> friendsList;
+//    private List<ItemDTO> itemsList;
+//    private List<UserDTO> friendsList;
 
 
 }

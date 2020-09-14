@@ -5,8 +5,11 @@ import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
@@ -37,15 +40,48 @@ public class UserEntity {
     @NotNull
     @Column(length = 100)
     private String password;
-    //private String confirmPassword;
 
-    @OneToMany
-    @JoinColumn(name = "username")
-    private List<ItemEntity> itemsList;
+    @Transient
+    @NotEmpty(message = "Please enter password confirmation")
+    private String confirmPassword;
 
-    @JoinTable(name = "friends", joinColumns = {
-            @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-            @JoinColumn(name = "friend_id", referencedColumnName = "id", nullable = false)})
-    @ManyToMany
-    private List<UserEntity> friendsList;
+//    @OneToMany
+//    @JoinColumn(name = "username")
+//    private List<ItemEntity> itemsList;
+//
+//    @JoinTable(name = "friends", joinColumns = {
+//            @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+//            @JoinColumn(name = "friend_id", referencedColumnName = "id", nullable = false)})
+//    @ManyToMany
+//    private List<UserEntity> friendsList;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

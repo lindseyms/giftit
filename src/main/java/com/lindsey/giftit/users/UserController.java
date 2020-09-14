@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping(value = "/username/{username}", produces = "application/json")
     public ResponseEntity getUserByUsername(@PathVariable String username){
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByUsername(username));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findByUsername(username));
     }
 
     @GetMapping(value = "/friendsOf/{username}", produces = "application/json")

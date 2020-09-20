@@ -18,7 +18,8 @@ public class UserController {
 
     @PostMapping(consumes = "application/json")
     public ResponseEntity createNewUser(@RequestBody UserDTO userDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createNewUser(userDTO));
+        userService.createNewUser(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping(value = "/username/{userUsername}/friendUsername/{friendUsername}")
@@ -31,6 +32,8 @@ public class UserController {
     public ResponseEntity getUserById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(id));
     }
+
+//    @GetMapping()
 
     @GetMapping(value = "/username/{username}", produces = "application/json")
     public ResponseEntity getUserByUsername(@PathVariable String username){

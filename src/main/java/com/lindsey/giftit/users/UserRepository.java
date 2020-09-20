@@ -13,6 +13,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
+    Optional<UserEntity> findByEmail(String email);
+
     @Modifying(clearAutomatically = true)
     @Transactional
     @Query(value = "INSERT INTO friends VALUES (:userId , :friendId)", nativeQuery = true)
@@ -27,8 +29,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Transactional
     @Query(value = "SELECT friend_id FROM friends WHERE user_id = :userId", nativeQuery = true)
     List<UserEntity> getAllFriendsByUsername(@Param("userId") Long userId);
-
-    Optional<UserEntity> findByEmail(String email);
 
     UserEntity getUserByUsername(String username);
 

@@ -14,27 +14,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
-@RequiredArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO implements Serializable {
 
-    @NonNull
     private Long id;
-    @NonNull
-
     private String firstName;
-    @NonNull
-
     private String lastName;
-    @NonNull
-
     private String username;
-    @NonNull
-
     private String email;
-    @NonNull
-
     private String password;
     private String confirmPassword;
 

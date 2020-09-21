@@ -13,7 +13,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -22,7 +23,6 @@ public class UserEntity implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NonNull
     private Long id;
 
     @NonNull

@@ -22,10 +22,10 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.createNewItem(itemDTO));
     }
 
-    @GetMapping(value = "/username/{username}", produces = "application/json")
-    public ResponseEntity getAllItemsByUsername(@PathVariable String username){
-        return ResponseEntity.status(HttpStatus.OK).body(itemService.getAllItemsByUsername(username));
-    }
+//    @GetMapping(value = "/username/{username}", produces = "application/json")
+//    public ResponseEntity getAllItemsByUsername(@PathVariable String username){
+//        return ResponseEntity.status(HttpStatus.OK).body(itemService.getAllItemsByUsername(username));
+//    }
 
     @GetMapping(value = "/id/{id}", produces = "application/json")
     public ResponseEntity getItemById(@PathVariable Long id){

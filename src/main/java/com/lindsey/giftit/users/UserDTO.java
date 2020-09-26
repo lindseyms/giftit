@@ -1,15 +1,10 @@
 package com.lindsey.giftit.users;
 
 import com.lindsey.giftit.items.ItemDTO;
-import com.lindsey.giftit.items.ItemEntity;
-import com.lindsey.giftit.role.RoleDTO;
 import com.lindsey.giftit.role.RoleEntity;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Required;
 
-import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

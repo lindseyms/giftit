@@ -8,7 +8,7 @@
     <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
     <!-- profile -->
-    <div id="profile" class="container">
+    <div id="profile" class="container" style = "color: white">
 
         <div class="row">
             <ul class="nav">
@@ -24,108 +24,72 @@
             </ul>
         </div>
 
-        <div class="row">
-
-            <div class="col-8">
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">What's new in Spring Boot 2</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">submitted 7 days ago by therealdanvega</h6>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" class="card-link">8 Comments</a>
-                            <a href="#" class="card-link">Share</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Right Side -->
-            <div class="col-3 offset-1">
-                <div class="row">
-                    <div class="card col-12">
-                        <img class="card-img-top" th:src="@{/images/profile_small.png}" alt="Card image cap">
-                        <div class="card-body">
-                            <p class="card-text">
-                                <a href="/u/therealdanvega">/u/therealdanvega</a>
-                            </p>
-                            <a href="../link/submit.html"><button type="button" class="btn btn-primary btn-lg btn-block">Add Item</button></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12">
-                        <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                        <div class="card-body">
-                            <h5 class="card-title">Your Information</h5>
-                            <p class="card-text">
-                                Posts: 10<br/>
-                                Comments: 3<br/>
-                                User Since: November 23, 2017<br/>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="card col-12">
-                        <h5 class="card-title recentLinks">Recent Links Clicked</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><a href="#">What's new in Spring Boot 2</a></li>
-                            <li class="list-group-item"><a href="#">10 Features in Java 10</a></li>
-                            <li class="list-group-item"><a href="#">9 Features in Java 9</a></li>
-                            <li class="list-group-item"><a href="#">8 Features in Java 8</a></li>
-                            <li class="list-group-item"><a href="#">7 Reasons not to use Java 7</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-        </div> <!-- // row -->
 
     </div><!-- // profile -->
+
+<!--        <ul >-->
+<!--            <li style="margin-bottom:1rem; float: left; width: 15rem;" class="border-with-shadow"  th:each="itemDTOS : ${itemDTOS}" >-->
+<!--                <a  th:href ="${itemDTOS.link}"  style="padding-top:7px; margin-top:1rem; margin-bottom:1rem;" th:text="${itemDTOS.title}">Headline</a>-->
+<!--                <p th:text="${itemDTOS.description}"></p>-->
+<!--            </li>-->
+<!--        </ul>-->
+
+    <div id="columns" >
+        <figure th:each="itemDTOS : ${itemDTOS}" >
+            <a  th:href ="${itemDTOS.link}" target="_blank"  th:text="${itemDTOS.title}">Headline</a>
+            <p th:text="${itemDTOS.price}"></p>
+            <p style="width:10rem;" th:text="${itemDTOS.description}"></p>
+        </figure>
+    </div>
+<!--                    <div style="margin-bottom:1rem;" >-->
+
+
+
+
+<!--                    <img width="125px" th:src="@{'/images/'+${giftCardEntities.name +'.png'}}" />-->
+
+<!--                    <div th:each="giftCardEntities : ${giftCardEntities}">-->
+<!--                        <div th:each="wantedCardEntities : ${wantedCardEntities}" >-->
+<!--                            <span  th:if="${giftCardEntities.id == wantedCardEntities.ownedCardId}">-->
+<!--                                <img src="images/swaparrow.png" style="width: 35px;"/>-->
+<!--                                 <h6 style="text-align: center;" th:text="${wantedCardEntities.name}">Headline</h6>-->
+<!--                                <img width="75px" th:src="@{'/images/'+${wantedCardEntities.name +'.png'}}" />-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                                <p>Pending...</p>-->
+<!--                  </div> &lt;!&ndash;border-with-shadow&ndash;&gt;-->
+
+<!--                    <div class="flip-card-back">-->
+<!--                        <p style=" padding-top:1rem; text-align: center; margin:0px; font-size: 22px;" th:text="${giftCardEntities.name}">Headline</p>-->
+<!--                        <h6 style="text-align: center;" th:text="${'$'+giftCardEntities.cardBalance}">Headline</h6>-->
+<!--                        <img width="90px" th:src="@{'/images/'+${giftCardEntities.name +'.png'}}" />-->
+<!--                        <div th:each="giftCardEntities : ${giftCardEntities}">-->
+<!--                            <div th:each="wantedCardEntities : ${wantedCardEntities}" >-->
+<!--                            <span  th:if="${giftCardEntities.id == wantedCardEntities.ownedCardId}">-->
+<!--                                <img src="images/swaparrow.png" style="width: 35px;"/>-->
+<!--                                 <h6 style="text-align: center;" th:text="${wantedCardEntities.name}">Headline</h6>-->
+<!--                                <h6 style="text-align: center;" th:text="${'$'+wantedCardEntities.cardBalance}">Headline</h6>-->
+<!--                                <img width="70px" th:src="@{'/images/'+${wantedCardEntities.name +'.png'}}" />-->
+<!--                            </span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+
+
+
+
+
+<!--    <div style="padding-right:5rem; padding-bottom:3rem"  class="button">-->
+<!--        <button style=" font-size: 22px;" type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Add a card</button>-->
+<!--    </div>-->
+<!--    </form>-->
+
+
+
+
+
 
     </body>
 </html>

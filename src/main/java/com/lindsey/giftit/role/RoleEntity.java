@@ -9,8 +9,8 @@ import java.util.Collection;
 
 @Entity
 @RequiredArgsConstructor  //***we changed this from allArgsConstructor
-@Data
-@ToString
+@Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "roles")
 public class RoleEntity {

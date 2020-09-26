@@ -1,10 +1,5 @@
 package com.lindsey.giftit.security;
 
-
-
-import com.lindsey.giftit.role.RoleDTO;
-import com.lindsey.giftit.role.RoleEntity;
-import com.lindsey.giftit.users.UserDTO;
 import com.lindsey.giftit.users.UserEntity;
 import com.lindsey.giftit.users.UserRepository;
 import com.lindsey.giftit.users.UserService;
@@ -36,7 +31,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<UserEntity> userEntity = userRepository.findByEmail(email);
-        log.warn("userEntity coming from find by email method in repository: " + userEntity.get().getEmail());
 
         if(!userEntity.isPresent()){
             throw new UsernameNotFoundException(email);

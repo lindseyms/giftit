@@ -6,8 +6,125 @@
     <nav th:replace="~{layouts/main_layout :: nav}"></nav>
     <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 <!--    <div th:replace="~{layouts/main_layout :: content}">-->
-    <div class="container">
-         content goes here
+
+    <div style="color:white" class="container">
+        <div class="row" th:if="${success}">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 alert alert-success" role="alert" >
+                Item Added Successfully!
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+
+    <form class="form-horizontal" role="form" method="POST" th:action="@{/add_items}" th:object="${item}" th:if="!${success}">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2>What do You Want?</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row" th:if="${validationErrors}">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+            <span class="text-danger align-middle">
+                <ul th:each="error : ${validationErrors}">
+                    <li th:text="${error.getDefaultMessage()}"></li>
+                </ul>
+            </span>
+            </div>
+        </div>
+
+<!------------- Title ------------>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="title">Name of Item</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <input type="text"
+                               name="title"
+                               class="form-control"
+                               id="title"
+                               placeholder="What is it?"
+                               th:field="*{title}" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!------------- Link ------------>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="link">Link</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <input type="url"
+                               name="link"
+                               class="form-control"
+                               id="link"
+                               placeholder="Link to Item"
+                               th:field="*{link}" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!------------- Description ------------>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="description">Description</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <input type="text"
+                               name="description"
+                               class="form-control"
+                               id="description"
+                               placeholder="Give Some Detail"
+                               th:field="*{description}" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!------------- Price ------------>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="price">Price</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"></div>
+                        <input type="number"
+                               minimum="0"
+                               step="any"
+                               name="price"
+                               class="form-control"
+                               id="price"
+                               placeholder="How Much Does it Cost?"
+                               th:field="*{price}" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Item</button>
+            </div>
+        </div>
+    </form>
     </div>
     </body>
 </html>

@@ -7,7 +7,7 @@
     <nav th:replace="~{layouts/main_layout :: nav}"></nav>
     <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
-    <div class="container">
+    <div style="color:white" class="container">
 
         <!-- login -->
         <form class="form-horizontal" role="form" method="POST" th:action="@{/login}">
@@ -28,8 +28,8 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <div class="form-group has-danger">
-                        <label class="sr-only" for="email">E-Mail Address</label>
+                    <div style="color:white" class="form-group has-danger">
+                        <label class="sr-only" for="email" >E-Mail Address</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="far fa-user" aria-hidden="true"></i></div>
                             <input type="text" name="email" class="form-control" id="email" placeholder="Username" required autofocus>
@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <div class="form-group">
+                    <div style="color:white" class="form-group">
                         <label class="sr-only" for="password">Password</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="fas fa-lock"></i></div>

@@ -1,8 +1,7 @@
 package com.lindsey.giftit.users;
 
-import com.lindsey.giftit.role.RoleDTO;
+import com.lindsey.giftit.items.ItemEntity;
 import com.lindsey.giftit.role.RoleEntity;
-import com.sun.istack.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +15,7 @@ import java.util.*;
 @Getter
 @Setter
 @Entity
+@Component
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "users")
@@ -46,11 +46,11 @@ public class UserEntity implements UserDetails{
     @NotEmpty(message = "Please enter password confirmation")
     private String confirmPassword;
 
-//    @Transient
-//    @OneToMany
-//    @JoinColumn(name = "username")
-//    private List<ItemEntity> itemsList;
-//
+    @Transient
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<ItemEntity> itemsList;
+
 //    @Transient
 //    @JoinTable(name = "users_friends", joinColumns = {
 //            @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
@@ -81,7 +81,7 @@ public class UserEntity implements UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for (RoleEntity role : roles) { //**changed from role entity
+        for (RoleEntity role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getNameOfRole()));
         }
         return authorities;

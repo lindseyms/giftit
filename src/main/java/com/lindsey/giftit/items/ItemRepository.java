@@ -7,6 +7,8 @@ import java.util.List;
 
 @Repository
 public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
-    List<ItemEntity> findAllItemsByUsername(String username);
+//    List<ItemEntity> findAllItemsByUsername(String username);
+
+    List<ItemEntity> findAllItemsByUserId(Long userId);
 
 }

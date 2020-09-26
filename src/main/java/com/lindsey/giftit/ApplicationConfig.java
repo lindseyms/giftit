@@ -1,7 +1,5 @@
 package com.lindsey.giftit;
 
-import com.lindsey.giftit.role.RoleDTO;
-import com.lindsey.giftit.role.RoleEntity;
 import com.lindsey.giftit.users.UserDTO;
 import com.lindsey.giftit.users.UserEntity;
 import ma.glasnost.orika.MapperFacade;
@@ -30,15 +28,15 @@ public class ApplicationConfig {
                 .byDefault()
                 .register();
 
-        mapperFactory.classMap(RoleDTO.class, RoleEntity.class)
-                .mapNulls(true)
-                .byDefault()
-                .register();
-
-        mapperFactory.classMap(RoleEntity.class, RoleDTO.class)
-                .mapNulls(true)
-                .byDefault()
-                .register();
+//        mapperFactory.classMap(RoleDTO.class, RoleEntity.class)
+//                .mapNulls(true)
+//                .byDefault()
+//                .register();
+//
+//        mapperFactory.classMap(RoleEntity.class, RoleDTO.class)
+//                .mapNulls(true)
+//                .byDefault()
+//                .register();
 
         return mapperFactory;
     }

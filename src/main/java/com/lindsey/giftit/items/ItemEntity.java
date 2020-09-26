@@ -1,16 +1,15 @@
 package com.lindsey.giftit.items;
 
 import com.sun.istack.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -19,23 +18,20 @@ public class ItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long id;
+//
+//    @OneToMany
+//    @JoinColumn(name = "id")
+//    private String username;
 
-    @NotNull
-    private String username;
+    private Long userId;
 
-    @NotNull
     private String link;
 
-    @NotNull
     private String title;
 
-    @NotNull
     private String description;
 
-    @NotNull
     private double price;
-
 
 }

@@ -2,8 +2,6 @@ package com.lindsey.giftit.users;
 
 
 import com.lindsey.giftit.items.ItemService;
-import com.lindsey.giftit.role.RoleDTO;
-import com.lindsey.giftit.role.RoleEntity;
 import com.lindsey.giftit.role.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
@@ -37,17 +35,14 @@ public class UserService {
         userDTO.setPassword(secret);
         userDTO.setConfirmPassword(secret);
         UserEntity userEntity = mapper.map(userDTO, UserEntity.class);
-        log.warn("userEntity + " +userEntity.getFirstName());
         userEntity.addRole(roleService.findByNameOfRole("ROLE_USER"));
-        log.warn("Role has been added: " + userEntity.getRoles());
         userRepository.save(userEntity);
         return userDTO;
     }
 
     public UserDTO loginUser(UserDTO userDTO){
-        userRepository.findByEmail(userDTO.getEmail());
-        log.warn("logged in user is: " + userDTO.getEmail());
-        log.warn("the user " + userDTO.getUsername() + " has this role: " + userDTO.getRoles());
+        UserEntity userEntity = mapper.map(userDTO, UserEntity.class);
+        userRepository.findByEmail(userEntity.getEmail());
         return userDTO;
     }
 
@@ -57,36 +52,36 @@ public class UserService {
         return userDTO;
     }
 
-    public UserDTO findByUsername(String username){
-        UserEntity entity = userRepository.getUserByUsername(username);
-        UserDTO userDTO = mapper.map(entity, UserDTO.class);
-        return userDTO;
-    }
+//    public UserDTO findByUsername(String username){
+//        UserEntity entity = userRepository.getUserByUsername(username);
+//        UserDTO userDTO = mapper.map(entity, UserDTO.class);
+//        return userDTO;
+//    }
 
-    public void addFriendById(String userUsername, String friendUsername){
-        UserEntity userUserEntity = userRepository.getUserByUsername(userUsername);
-        UserEntity userFriendEntity = userRepository.getUserByUsername(friendUsername);
-        userRepository.addFriendById(userUserEntity.getId(), userFriendEntity.getId());
-    }
+//    public void addFriendById(String userUsername, String friendUsername){
+//        UserEntity userUserEntity = userRepository.getUserByUsername(userUsername);
+//        UserEntity userFriendEntity = userRepository.getUserByUsername(friendUsername);
+//        userRepository.addFriendById(userUserEntity.getId(), userFriendEntity.getId());
+//    }
 
-    public List<UserDTO> getAllFriendsByUsername(String username){
-        List <UserDTO> friendList = new ArrayList<>();
-        List<Long> friendIds = getAllFriendIds(username);
-        for(Long friendId : friendIds){
-            UserDTO friend = getUserById(friendId);
-            friendList.add(friend);
-        }
-        return friendList;
-    }
+//    public List<UserDTO> getAllFriendsByUsername(String username){
+//        List <UserDTO> friendList = new ArrayList<>();
+//        List<Long> friendIds = getAllFriendIds(username);
+//        for(Long friendId : friendIds){
+//            UserDTO friend = getUserById(friendId);
+//            friendList.add(friend);
+//        }
+//        return friendList;
+//    }
 
-    public List<Long> getAllFriendIds(String username){
-        return userRepository.getAllFriendIds(getUserIdByUsername(username));
-    }
+//    public List<Long> getAllFriendIds(String username){
+//        return userRepository.getAllFriendIds(getUserIdByUsername(username));
+//    }
 
-    public Long getUserIdByUsername(String username){
-        UserEntity entity = userRepository.getUserByUsername(username);
-        return entity.getId();
-
-    }
+//    public Long getUserIdByUsername(String username){
+//        UserEntity entity = userRepository.getUserByUsername(username);
+//        return entity.getId();
+//
+//    }
 
 }

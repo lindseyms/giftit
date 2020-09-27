@@ -13,10 +13,10 @@
         <div class="row">
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">My Items</a>
+                    <a class="nav-link active" href="profile">My Items</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Add Item</a>
+                    <a class="nav-link" href="add_items">Add Item</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Friends</a>
@@ -38,7 +38,7 @@
         <figure th:each="itemDTOS : ${itemDTOS}" >
             <a  th:href ="${itemDTOS.link}" target="_blank"  th:text="${itemDTOS.title}">Headline</a>
             <p th:text="${itemDTOS.price}"></p>
-            <p style="width:10rem;" th:text="${itemDTOS.description}"></p>
+            <p th:text="${itemDTOS.description}"></p>
         </figure>
     </div>
 <!--                    <div style="margin-bottom:1rem;" >-->

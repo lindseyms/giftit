@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/main_layout :: head(title = 'Gift It - Profile')}">
+</head>
+<body>
+
+<nav th:replace="~{layouts/main_layout :: nav}"></nav>
+<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+
+<div style="color:white" class="container">
+    <div class="row" th:if="${success}">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 alert alert-success" role="alert">
+            Item Added Successfully!
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+    <form class="form-horizontal" role="form" method="POST" th:action="@{/search}"  th:if="!${success}">
+
+        <div id="profile" class="container" style="color: white">
+            <h1>friends profile</h1>
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Friend</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+            <div id="columns">
+                <figure th:each="itemDTOS2 : ${itemDTOS2}">
+                    <a th:href="${itemDTOS2.link}" target="_blank" th:text="${itemDTOS2.title}">Headline</a>
+                    <p>$<span th:text="${#numbers.formatDecimal(itemDTOS2.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
+                    <p th:text="${itemDTOS2.description}"></p>
+                </figure>
+            </div>
+
+
+
+
+    </div><!-- // profile -->
+</body>
+</html>

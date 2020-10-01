@@ -143,6 +143,7 @@ div#columns figure {
     column-break-inside: avoid;
 }
 
+
 div#columns figure img {
     width: 100%; height: auto;
     border-bottom: 1px solid #ccc;

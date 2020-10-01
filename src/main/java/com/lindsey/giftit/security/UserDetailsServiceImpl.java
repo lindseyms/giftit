@@ -29,11 +29,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<UserEntity> userEntity = userRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<UserEntity> userEntity = userRepository.findByUsername(username);
 
         if(!userEntity.isPresent()){
-            throw new UsernameNotFoundException(email);
+            throw new UsernameNotFoundException(username);
         }
         return userEntity.get();
     }

@@ -42,27 +42,34 @@ public class UserService {
 
     public UserDTO loginUser(UserDTO userDTO){
         UserEntity userEntity = mapper.map(userDTO, UserEntity.class);
-        userRepository.findByEmail(userEntity.getEmail());
+        userRepository.findByUsername(userEntity.getUsername());
         return userDTO;
     }
 
-    public UserDTO getUserById(Long id){
+    public UserDTO findById(Long id){
         UserEntity entity = userRepository.getOne(id);
-        UserDTO userDTO = mapper.map(entity, UserDTO.class);
+        UserDTO userDTO = new UserDTO(entity.getId(), entity.getFirstName(),entity.getLastName(),entity.getUsername(),entity.getEmail(),entity.getPassword(),entity.getConfirmPassword(), new ArrayList<>(), new ArrayList<>(), entity.getRoles());
         return userDTO;
     }
-
-//    public UserDTO findByUsername(String username){
-//        UserEntity entity = userRepository.getUserByUsername(username);
-//        UserDTO userDTO = mapper.map(entity, UserDTO.class);
+//
+//    public UserDTO getUserById(Long id){
+//        UserEntity entity = userRepository.getOne(id);
+//        UserDTO userDTO = new UserDTO(entity.getId(), entity.getFirstName(),entity.getLastName(),entity.getUsername(),entity.getEmail(),entity.getPassword(),entity.getConfirmPassword(), new ArrayList<>(), new ArrayList<>(), entity.getRoles());
 //        return userDTO;
 //    }
 
-//    public void addFriendById(String userUsername, String friendUsername){
-//        UserEntity userUserEntity = userRepository.getUserByUsername(userUsername);
-//        UserEntity userFriendEntity = userRepository.getUserByUsername(friendUsername);
-//        userRepository.addFriendById(userUserEntity.getId(), userFriendEntity.getId());
-//    }
+    public UserDTO findByUsername(String username){
+        UserEntity entity = userRepository.findUserByUsername(username);
+        UserDTO userDTO = new UserDTO(entity.getId(), entity.getFirstName(),entity.getLastName(),entity.getUsername(),entity.getEmail(),entity.getPassword(),entity.getConfirmPassword(),  new ArrayList<>(), new ArrayList<>(), entity.getRoles());
+
+        return userDTO;
+    }
+
+    public void addFriendById(Long userId, Long friendId){
+        UserEntity userUserEntity = userRepository.findUserById(userId);
+        UserEntity userFriendEntity = userRepository.findUserById(friendId);
+        userRepository.addFriendById(userUserEntity.getId(), userFriendEntity.getId());
+    }
 
 //    public List<UserDTO> getAllFriendsByUsername(String username){
 //        List <UserDTO> friendList = new ArrayList<>();

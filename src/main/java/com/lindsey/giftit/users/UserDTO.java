@@ -23,8 +23,8 @@ public class UserDTO implements Serializable {
     private String password;
     private String confirmPassword;
 
-//    private List<ItemDTO> itemsList;
-//    private List<UserDTO> friendsList;
+    private List<ItemDTO> itemsList;
+    private List<UserDTO> friendsList;
 
     private Set<RoleEntity> roles = new HashSet<>();
 

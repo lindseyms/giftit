@@ -51,12 +51,11 @@ public class UserEntity implements UserDetails{
     @JoinColumn(name = "user_id")
     private List<ItemEntity> itemsList;
 
-//    @Transient
-//    @JoinTable(name = "users_friends", joinColumns = {
-//            @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-//            @JoinColumn(name = "friend_id", referencedColumnName = "id", nullable = false)})
-//    @ManyToMany
-//    private List<UserEntity> friendsList;
+    @ManyToMany
+    @JoinTable(name = "users_friends", joinColumns = {
+            @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+            @JoinColumn(name = "friend_id", referencedColumnName = "id", nullable = false)})
+    private List<UserEntity> friendsList;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -89,7 +88,7 @@ public class UserEntity implements UserDetails{
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

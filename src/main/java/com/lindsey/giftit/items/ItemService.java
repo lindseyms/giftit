@@ -33,7 +33,7 @@ public class ItemService {
 
     public ItemDTO getItemById(Long id){
         ItemEntity entity = itemRepository.getOne(id);
-        ItemDTO itemDTO = new ItemDTO(entity.getId(), entity.getUserId(), entity.getLink(), entity.getTitle(), entity.getDescription(), entity.getPrice());
+        ItemDTO itemDTO = mapper.map(entity, ItemDTO.class);
         return itemDTO;
     }
 

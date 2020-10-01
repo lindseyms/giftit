@@ -25,10 +25,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //this is whe
                 .antMatchers("/").permitAll()
                 .antMatchers("/profile").hasRole("USER")
                 .antMatchers("/add_items").hasRole("USER")
-            .and()
+                .antMatchers("/friends").hasRole("USER")
+                .antMatchers("/search").hasRole("USER")
+                .and()
             .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/profile", true)
                 .usernameParameter("email");
 
     }

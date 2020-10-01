@@ -19,76 +19,19 @@
                     <a class="nav-link" href="add_items">Add Item</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Friends</a>
+                    <a class="nav-link" href="friends">Friends</a>
                 </li>
             </ul>
         </div>
-
+        <div id="columns">
+            <figure th:each="itemDTOS : ${itemDTOS}" >
+                <a  th:href ="${itemDTOS.link}" target="_blank"  th:text="${itemDTOS.title}">Headline</a>
+                <p>$<span th:text="${#numbers.formatDecimal(itemDTOS.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
+                <p th:text="${itemDTOS.description}"></p>
+            </figure>
+        </div>
 
     </div><!-- // profile -->
-
-<!--        <ul >-->
-<!--            <li style="margin-bottom:1rem; float: left; width: 15rem;" class="border-with-shadow"  th:each="itemDTOS : ${itemDTOS}" >-->
-<!--                <a  th:href ="${itemDTOS.link}"  style="padding-top:7px; margin-top:1rem; margin-bottom:1rem;" th:text="${itemDTOS.title}">Headline</a>-->
-<!--                <p th:text="${itemDTOS.description}"></p>-->
-<!--            </li>-->
-<!--        </ul>-->
-
-    <div id="columns" >
-        <figure th:each="itemDTOS : ${itemDTOS}" >
-            <a  th:href ="${itemDTOS.link}" target="_blank"  th:text="${itemDTOS.title}">Headline</a>
-            <p th:text="${itemDTOS.price}"></p>
-            <p th:text="${itemDTOS.description}"></p>
-        </figure>
-    </div>
-<!--                    <div style="margin-bottom:1rem;" >-->
-
-
-
-
-<!--                    <img width="125px" th:src="@{'/images/'+${giftCardEntities.name +'.png'}}" />-->
-
-<!--                    <div th:each="giftCardEntities : ${giftCardEntities}">-->
-<!--                        <div th:each="wantedCardEntities : ${wantedCardEntities}" >-->
-<!--                            <span  th:if="${giftCardEntities.id == wantedCardEntities.ownedCardId}">-->
-<!--                                <img src="images/swaparrow.png" style="width: 35px;"/>-->
-<!--                                 <h6 style="text-align: center;" th:text="${wantedCardEntities.name}">Headline</h6>-->
-<!--                                <img width="75px" th:src="@{'/images/'+${wantedCardEntities.name +'.png'}}" />-->
-<!--                            </span>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                                <p>Pending...</p>-->
-<!--                  </div> &lt;!&ndash;border-with-shadow&ndash;&gt;-->
-
-<!--                    <div class="flip-card-back">-->
-<!--                        <p style=" padding-top:1rem; text-align: center; margin:0px; font-size: 22px;" th:text="${giftCardEntities.name}">Headline</p>-->
-<!--                        <h6 style="text-align: center;" th:text="${'$'+giftCardEntities.cardBalance}">Headline</h6>-->
-<!--                        <img width="90px" th:src="@{'/images/'+${giftCardEntities.name +'.png'}}" />-->
-<!--                        <div th:each="giftCardEntities : ${giftCardEntities}">-->
-<!--                            <div th:each="wantedCardEntities : ${wantedCardEntities}" >-->
-<!--                            <span  th:if="${giftCardEntities.id == wantedCardEntities.ownedCardId}">-->
-<!--                                <img src="images/swaparrow.png" style="width: 35px;"/>-->
-<!--                                 <h6 style="text-align: center;" th:text="${wantedCardEntities.name}">Headline</h6>-->
-<!--                                <h6 style="text-align: center;" th:text="${'$'+wantedCardEntities.cardBalance}">Headline</h6>-->
-<!--                                <img width="70px" th:src="@{'/images/'+${wantedCardEntities.name +'.png'}}" />-->
-<!--                            </span>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-
-
-
-
-
-<!--    <div style="padding-right:5rem; padding-bottom:3rem"  class="button">-->
-<!--        <button style=" font-size: 22px;" type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Add a card</button>-->
-<!--    </div>-->
-<!--    </form>-->
-
-
-
-
 
 
     </body>

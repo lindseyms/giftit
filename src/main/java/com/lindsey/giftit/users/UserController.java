@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping(value = "/id/{id}", produces = "application/json")
     public ResponseEntity getUserById(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUserById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findById(id));
     }
 
 //    @GetMapping()

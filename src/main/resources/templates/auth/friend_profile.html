@@ -7,40 +7,61 @@
 <nav th:replace="~{layouts/main_layout :: nav}"></nav>
 <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
-<div style="color:white" class="container">
-    <div class="row" th:if="${success}">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 alert alert-success" role="alert">
-            Item Added Successfully!
-        </div>
-        <div class="col-md-3"></div>
+<div class="row" th:if="${success}">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 alert alert-success" role="alert">
+        Status updated!
     </div>
+    <div class="col-md-3"></div>
+</div>
 
-    <form class="form-horizontal" role="form" method="POST" th:action="@{/search}"  th:if="!${success}">
-
-        <div id="profile" class="container" style="color: white">
-            <h1>friends profile</h1>
+<div style="color:white" class="container">
+<span th:switch="${areUsersFriends}">
+<!--if not friends-->
+    <form class="form-horizontal" role="form" method="POST" th:action="@{/search}" th:if="!${success}">
+        <h1>friends profile</h1>
             <div class="row">
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Friend</button>
+                        <button th:case="'false'" type="submit" class="btn btn-success" ><i class="fas fa-plus-circle"></i> Add Friend</button>
+                        <button th:case="'true'" type="submit" class="btn btn-remove" ><i class="fas fa-minus-circle"></i> Remove Friend</button>
                     </div>
                 </div>
             </div>
-        </div>
     </form>
-            <div id="columns">
-                <figure th:each="itemDTOS2 : ${itemDTOS2}">
-                    <a th:href="${itemDTOS2.link}" target="_blank" th:text="${itemDTOS2.title}">Headline</a>
-                    <p>$<span th:text="${#numbers.formatDecimal(itemDTOS2.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
-                    <p th:text="${itemDTOS2.description}"></p>
-                </figure>
+
+<!--if types in own name-->
+<!--        <form th:case="'*'" class="form-horizontal" role="form" method="GET" th:action="@{/profile}" th:if="!${success}">-->
+<!--        <h1>friends profile</h1>-->
+<!--            <div class="row">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-3"></div>-->
+<!--                    <div class="col-md-6">-->
+<!--                        <button type="submit" class="btn btn-remove" ><i class="fas fa-minus-circle"></i> Remove Friend</button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--    </form>-->
+
+</span>
+
+    <div id="columns">
+        <figure th:each="itemDTOS2 : ${itemDTOS2}">
+<!--            <a th:href="${itemDTOS2.link}" target="_blank" th:text="${itemDTOS2.title}">Headline</a>-->
+<!--            <p th:text="${itemDTOS2.description}"></p>-->
+            <div class="iframely-embed">
+                <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a
+                        th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS2.link}+'&api_key=1a3f50a29205bf7ec89c4f&iframe=card'}" target="_blank" ></a>
+                </div>
             </div>
+            <script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
+            <p>$<span th:text="${#numbers.formatDecimal(itemDTOS2.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
+
+        </figure>
+    </div>
 
 
-
-
-    </div><!-- // profile -->
+</div><!-- // profile -->
 </body>
 </html>

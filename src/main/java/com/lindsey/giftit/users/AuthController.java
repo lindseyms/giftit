@@ -8,10 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
@@ -73,39 +70,64 @@ public class AuthController {
 
     @GetMapping("/")
     public String root(Model model){
-//        Long userId = itemService.loggedInUser().getId();
-//        List<ItemDTO> itemDTOS = itemService.findAllItemsByUserId(userId);
-//
-//        model.addAttribute("itemDTOS", itemDTOS);
         return "auth/login";
     }
 
-//    @GetMapping("/find_friends")
-//    public String findFriends(){
-//        return "auth/find_friends";
-//    }
+    @GetMapping("/home")
+    public String home(Model model){
+        return "auth/home";
+    }
 
     @GetMapping("/search")
     public String findFriends(Model model, @RequestParam("username") String username){
-        log.warn("Username is: " + username);
         UserDTO friend = userService.findByUsername(username);
-        log.warn("user is!!: " + friend);
         friendId = friend.getId();
         List<ItemDTO> items = itemService.findAllItemsByUserId(friendId);
         model.addAttribute("itemDTOS2", items);
+
+        boolean areUsersFriends = userService.areUsersFriends(itemService.loggedInUser().getId(), friendId);
+        if(areUsersFriends){
+            model.addAttribute("areUsersFriends", "true");
+        }
+        else{
+            model.addAttribute("areUsersFriends", "false");
+        }
 
         return "auth/friend_profile";
     }
 
     @PostMapping("/search")
     public String addFriend(RedirectAttributes redirectAttributes){
-//       log.warn("Friend id is: " +friend.getId());
-        userService.addFriendById(itemService.loggedInUser().getId(), friendId);
+        boolean areUsersFriends = userService.areUsersFriends(itemService.loggedInUser().getId(), friendId);
+
+        if(areUsersFriends){
+            userService.removeAsFriend(itemService.loggedInUser().getId(), friendId);
+        }
+        else{
+            userService.addFriendById(itemService.loggedInUser().getId(), friendId);
+        }
         String friendUsername = userService.findById(friendId).getUsername();
-        UserDTO userDTO = userService.findById(friendId);
-        log.warn("username is: (coming from postmapping) " + userDTO.getId() + "first" + userDTO.getFirstName() + "last" + userDTO.getLastName() +"usernaem" +userDTO.getUsername() + "email" + userDTO.getEmail() + "pass" + userDTO.getPassword() + "confirm" + userDTO.getConfirmPassword());
         redirectAttributes.addAttribute("username", friendUsername).addFlashAttribute("success", true);
+
         return "redirect:/search";
     }
+
+//    @PostMapping("/profile")
+//    public String removeItem(RedirectAttributes redirectAttributes){
+//        itemService.removeItem(itemService.findByTitle());
+//        String friendUsername = userService.findById(friendId).getUsername();
+//        redirectAttributes.addAttribute("username", friendUsername).addFlashAttribute("success", true);
+//
+//        return "redirect:/profile";
+//    }
+
+    @GetMapping("/friends")
+    public String friends(Model model) {
+        String username = itemService.loggedInUser().getUsername();
+        List<UserDTO> friends = userService.getAllFriendsByUsername(username);
+        model.addAttribute("friends", friends);
+        return "auth/friends";
+    }
+
 
 }

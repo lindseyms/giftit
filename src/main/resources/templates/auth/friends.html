@@ -4,37 +4,35 @@
 </head>
 <body>
 
-<nav th:replace="~{layouts/main_layout :: nav}"></nav>
-<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+    <nav th:replace="~{layouts/main_layout :: nav}"></nav>
+    <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
 <!-- profile -->
-<div id="profile" class="container" style="color: white">
+    <div id="profile" class="container" style="color: white">
 
-    <div class="row">
-        <ul class="nav">
-            <li class="nav-item">
-                <a class="nav-link active" href="profile">My Items</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="add_items">Add Item</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="friends">Friends</a>
-            </li>
-        </ul>
-    </div>
+        <div class="row">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="profile">My Items</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="add_items">Add Item</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="friends">Friends</a>
+                </li>
+            </ul>
+        </div>
 
+        <div id="columns">
+            <figure th:each="friends : ${friends}">
+                <a th:href="@{/search(username=${friends.username})}"
+                   th:text="${friends.username}">Username</a>
+                <p th:text="${friends.firstName} + ' ' + ${friends.lastName}"></p>
+            </figure>
+        </div>
 
-</div><!-- // profile -->
-
-
-<div>
-    <form action="/friends">
-        <a style="float:left;" class="nav-link" th:href="@{/friends}"><i class="fas fa-search"></i></a>
-        <input style="float:left; margin-top:5px; border-radius:0.25rem; border: 1px solid #ced4da;" type="text"
-               placeholder="Find Friends" name="search">
-    </form>
-</div>
+    </div><!-- // profile -->
 
 
 </body>

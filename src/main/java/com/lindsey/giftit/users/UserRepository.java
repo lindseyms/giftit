@@ -16,8 +16,12 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByEmail(String email);
+
     Optional<UserEntity> findByUsername(String email);
 
+    UserEntity findUserByUsername(String username);
+
+    UserEntity findUserById(Long id);
 
     @Modifying(clearAutomatically = true)
     @Transactional
@@ -34,8 +38,14 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT friend_id FROM users_friends WHERE user_id = :userId", nativeQuery = true)
     List<UserEntity> getAllFriendsById(@Param("userId") Long userId);
 
-    UserEntity findUserByUsername(String username);
+    @Transactional
+    @Query(value = "SELECT CASE WHEN EXISTS (SELECT * FROM users_friends WHERE user_id = :userId AND friend_id = :friendId) THEN 'TRUE' ELSE 'FALSE' END", nativeQuery = true)
+    boolean areUsersFriends(@Param("userId") Long userId, @Param("friendId") Long friendId);
 
-    UserEntity findUserById(Long id);
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    @Query(value = "DELETE FROM users_friends WHERE user_id = :userId AND friend_id = :friendId", nativeQuery = true)
+    void removeAsFriend(@Param("userId") Long userId, @Param("friendId") Long friendId);
+
 
 }

@@ -178,3 +178,9 @@ div#columns:hover figure:not(:hover) {
     #columns { column-gap: 0px; }
     #columns figure { width: 100%; }
 }
+
+.price{
+    font-size: 14px;
+    font-weight: bold;
+    color: #ff884d;
+}

@@ -2,6 +2,7 @@ package com.lindsey.giftit.items;
 
 import com.lindsey.giftit.users.UserEntity;
 import ma.glasnost.orika.MapperFacade;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,5 +52,11 @@ public class ItemService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userEntity = (UserEntity)authentication.getPrincipal();
         return userEntity;
+    }
+
+    public ItemDTO findByTitle(String title){
+        ItemEntity entity = itemRepository.findByTitle(title);
+        ItemDTO dto = mapper.map(entity, ItemDTO.class);
+        return dto;
     }
 }

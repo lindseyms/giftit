@@ -51,12 +51,6 @@ public class UserService {
         UserDTO userDTO = new UserDTO(entity.getId(), entity.getFirstName(),entity.getLastName(),entity.getUsername(),entity.getEmail(),entity.getPassword(),entity.getConfirmPassword(), new ArrayList<>(), new ArrayList<>(), entity.getRoles());
         return userDTO;
     }
-//
-//    public UserDTO getUserById(Long id){
-//        UserEntity entity = userRepository.getOne(id);
-//        UserDTO userDTO = new UserDTO(entity.getId(), entity.getFirstName(),entity.getLastName(),entity.getUsername(),entity.getEmail(),entity.getPassword(),entity.getConfirmPassword(), new ArrayList<>(), new ArrayList<>(), entity.getRoles());
-//        return userDTO;
-//    }
 
     public UserDTO findByUsername(String username){
         UserEntity entity = userRepository.findUserByUsername(username);
@@ -71,24 +65,33 @@ public class UserService {
         userRepository.addFriendById(userUserEntity.getId(), userFriendEntity.getId());
     }
 
-//    public List<UserDTO> getAllFriendsByUsername(String username){
-//        List <UserDTO> friendList = new ArrayList<>();
-//        List<Long> friendIds = getAllFriendIds(username);
-//        for(Long friendId : friendIds){
-//            UserDTO friend = getUserById(friendId);
-//            friendList.add(friend);
-//        }
-//        return friendList;
-//    }
+    public List<UserDTO> getAllFriendsByUsername(String username){
+        List <UserDTO> friendList = new ArrayList<>();
+        List<Long> friendIds = getAllFriendIds(username);
+        for(Long friendId : friendIds){
+            UserDTO friend = findById(friendId);
+            friendList.add(friend);
+        }
+        return friendList;
+    }
 
-//    public List<Long> getAllFriendIds(String username){
-//        return userRepository.getAllFriendIds(getUserIdByUsername(username));
-//    }
+    public List<Long> getAllFriendIds(String username){
+        return userRepository.getAllFriendIds(getUserIdByUsername(username));
+    }
 
-//    public Long getUserIdByUsername(String username){
-//        UserEntity entity = userRepository.getUserByUsername(username);
-//        return entity.getId();
-//
-//    }
+    public Long getUserIdByUsername(String username){
+        UserEntity entity = userRepository.findUserByUsername(username);
+        return entity.getId();
+
+    }
+
+    public boolean areUsersFriends(Long userId, Long friendId){
+        boolean friends = userRepository.areUsersFriends(userId, friendId);
+        return friends;
+    }
+
+    public void removeAsFriend(Long userId, Long friendId){
+        userRepository.removeAsFriend(userId, friendId);
+    }
 
 }

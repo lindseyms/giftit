@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="~{layouts/main_layout :: head(title = 'Gift It - Profile')}">
-    </head>
-    <body>
+<head th:replace="~{layouts/main_layout :: head(title = 'Gift It - Profile')}">
+</head>
+<body>
 
-    <nav th:replace="~{layouts/main_layout :: nav}"></nav>
-    <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+<nav th:replace="~{layouts/main_layout :: nav}"></nav>
+<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
-    <!-- profile -->
-    <div id="profile" class="container" style = "color: white">
+<!-- profile -->
+<div id="profile" class="container" style="color: white">
 
-        <div class="row">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="profile">My Items</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="add_items">Add Item</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="friends">Friends</a>
-                </li>
-            </ul>
-        </div>
-        <div id="columns">
-            <figure th:each="itemDTOS : ${itemDTOS}" >
-                <a  th:href ="${itemDTOS.link}" target="_blank"  th:text="${itemDTOS.title}">Headline</a>
-                <p>$<span th:text="${#numbers.formatDecimal(itemDTOS.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
-                <p th:text="${itemDTOS.description}"></p>
-            </figure>
-        </div>
+    <div class="row">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="profile">My Items</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="add_items">Add Item</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="friends">Friends</a>
+            </li>
+        </ul>
+    </div>
+    <div id="columns">
+        <figure th:each="itemDTOS : ${itemDTOS}">
+<!--            <a th:href="${itemDTOS.link}" target="_blank" th:text="${itemDTOS.title}">Headline</a>-->
+<!--            <p th:text="${itemDTOS.description}"></p>-->
 
-    </div><!-- // profile -->
+            <div class="iframely-embed">
+                <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a
+                        th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS.link}+'&api_key=1a3f50a29205bf7ec89c4f&iframe=card'}" target="_blank" ></a>
 
+                </div>
+            </div>
+            <script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
+            <br><p class="price">Price: $<span th:text="${#numbers.formatDecimal(itemDTOS.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
 
-    </body>
+        </figure>
+    </div>
+
+</div><!-- // profile -->
+
+</body>
 </html>

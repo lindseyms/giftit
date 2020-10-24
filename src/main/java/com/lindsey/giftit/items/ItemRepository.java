@@ -18,7 +18,7 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
 
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "DELETE FROM items WHERE id = :itemId", nativeQuery = true)
-    void deleteById(@Param("itemId") Long id);
+    @Query(value = "DELETE FROM items WHERE link = :link", nativeQuery = true)
+    void deleteByLink(@Param("link") String link);
 
 }

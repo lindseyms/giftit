@@ -1,25 +1,27 @@
 //package com.lindsey.giftit.items;
 //
-//import lombok.Value;
+//import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.stereotype.Service;
 //import org.springframework.web.client.RestTemplate;
 //
 //@Service
+//@JsonIgnoreProperties(true)
 //public class ItemClient {
 //
-//    public class AccountClient {
-//        private final String url;
-//        private final RestTemplate restTemplate;
+//    private final String url1;
+//    private final String url2;
+//    private final RestTemplate restTemplate;
 //
-//        public AccountClient(@Value("${urls.items}") String url, RestTemplate restTemplate) {
-//            this.url = url;
-//            this.restTemplate = restTemplate;
-//        }
+//    public ItemClient(@Value("${urls.url1}") String url1, @Value("$urls.url2") String url2, RestTemplate restTemplate) {
+//        this.url1 = url1;
+//        this.url2 = url2;
+//        this.restTemplate = restTemplate;
+//    }
 //
-//        public ItemDTO getItemById(final long id) {
-//            ResponseEntity<ItemDTO> response = restTemplate.getForEntity(url + id, ItemDTO.class);
-//            return response.getBody();
-//        }
+//    public ItemDTO getItemByLink(String link) {
+//        ResponseEntity<ItemDTO> response = restTemplate.getForEntity(url1 + link + url2, ItemDTO.class);
+//        return response.getBody();
 //    }
 //}
+//

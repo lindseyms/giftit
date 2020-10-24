@@ -5,12 +5,20 @@
 <body>
 
 <nav th:replace="~{layouts/main_layout :: nav}"></nav>
-<div th:replace="~{layouts/main_layout :: jumbotron}"></div>
+<!--<div th:replace="~{layouts/main_layout :: jumbotron}"></div>-->
+
+<div  class="row" th:if="${success}">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 alert alert-success" role="alert">
+        Item successfully removed!
+    </div>
+    <div class="col-md-3"></div>
+</div>
 
 <!-- profile -->
-<div id="profile" class="container" style="color: white">
+<div  id="profile" class="container" style="color: white; margin-left: 150px; padding-top: 130px">
 
-    <div class="row">
+    <div  class="row">
         <ul class="nav">
             <li class="nav-item">
                 <a class="nav-link active" href="profile">My Items</a>
@@ -23,19 +31,20 @@
             </li>
         </ul>
     </div>
-    <div id="columns">
-        <figure th:each="itemDTOS : ${itemDTOS}">
-<!--            <a th:href="${itemDTOS.link}" target="_blank" th:text="${itemDTOS.title}">Headline</a>-->
-<!--            <p th:text="${itemDTOS.description}"></p>-->
+    <div style="text-align: center; " id="columns">
+        <figure  th:each="itemDTOS : ${itemDTOS}">
+            <form th:id="link" class="form-horizontal" role="form" method="POST" th:action="@{profile/remove/(link=${itemDTOS.link})}" th:object="${item}" th:if="!${success}">
+                <button type="submit" class="btn" style="float:right; background-color: transparent; color:#D1C2B5"><i class="far fa-times-circle"></i></button>
+            </form>
+            <br>
 
             <div class="iframely-embed">
                 <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a
                         th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS.link}+'&api_key=1a3f50a29205bf7ec89c4f&iframe=card'}" target="_blank" ></a>
-
                 </div>
             </div>
             <script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
-            <br><p class="price">Price: $<span th:text="${#numbers.formatDecimal(itemDTOS.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
+            <p class="price">$<span th:text="${#numbers.formatDecimal(itemDTOS.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
 
         </figure>
     </div>

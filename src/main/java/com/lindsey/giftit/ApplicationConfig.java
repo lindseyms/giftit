@@ -28,16 +28,6 @@ public class ApplicationConfig {
                 .byDefault()
                 .register();
 
-//        mapperFactory.classMap(RoleDTO.class, RoleEntity.class)
-//                .mapNulls(true)
-//                .byDefault()
-//                .register();
-//
-//        mapperFactory.classMap(RoleEntity.class, RoleDTO.class)
-//                .mapNulls(true)
-//                .byDefault()
-//                .register();
-
         return mapperFactory;
     }
 

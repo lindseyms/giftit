@@ -1,9 +1,13 @@
 package com.lindsey.giftit.users;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lindsey.giftit.items.ItemDTO;
 import com.lindsey.giftit.items.ItemService;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -46,36 +49,23 @@ public class AuthController {
         return "redirect:/register";
     }
 
-    @GetMapping("/add_items")
-    public String addItems(Model model){
-        model.addAttribute("item", new ItemDTO());
-        return "auth/add_items";
-    }
-
-    @PostMapping("/add_items")
-    public String addNewItem(ItemDTO item, RedirectAttributes redirectAttributes){
-        itemService.createNewItem(item);
-        redirectAttributes.addAttribute("id", item.getId()).addFlashAttribute("success", true);
-        return "redirect:/add_items";
-    }
 
     @GetMapping("/profile")
     public String profile(Model model){
         Long userId = itemService.loggedInUser().getId();
         List<ItemDTO> itemDTOS = itemService.findAllItemsByUserId(userId);
-
         model.addAttribute("itemDTOS", itemDTOS);
         return "auth/profile";
     }
 
     @GetMapping("/")
     public String root(Model model){
-        return "auth/login";
+        return "auth/index";
     }
 
     @GetMapping("/home")
     public String home(Model model){
-        return "auth/home";
+        return "auth/index";
     }
 
     @GetMapping("/search")
@@ -84,6 +74,7 @@ public class AuthController {
         friendId = friend.getId();
         List<ItemDTO> items = itemService.findAllItemsByUserId(friendId);
         model.addAttribute("itemDTOS2", items);
+        model.addAttribute("firstName", friend.getFirstName());
 
         boolean areUsersFriends = userService.areUsersFriends(itemService.loggedInUser().getId(), friendId);
         if(areUsersFriends){
@@ -112,21 +103,9 @@ public class AuthController {
         return "redirect:/search";
     }
 
-//    @PostMapping("/profile")
-//    public String removeItem(RedirectAttributes redirectAttributes){
-//        itemService.removeItem(itemService.findByTitle());
-//        String friendUsername = userService.findById(friendId).getUsername();
-//        redirectAttributes.addAttribute("username", friendUsername).addFlashAttribute("success", true);
-//
-//        return "redirect:/profile";
-//    }
-
-    @GetMapping("/friends")
-    public String friends(Model model) {
-        String username = itemService.loggedInUser().getUsername();
-        List<UserDTO> friends = userService.getAllFriendsByUsername(username);
-        model.addAttribute("friends", friends);
-        return "auth/friends";
+    @ExceptionHandler(NullPointerException.class) //this will handle the error if the user does not provide a value that was defined in the entity as being not null
+    public String userNotFound(NullPointerException ex){
+        return "auth/person_not_found";
     }
 
 

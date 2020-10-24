@@ -4,11 +4,9 @@
     </head>
     <body>
     <nav th:replace="~{layouts/main_layout :: nav}"></nav>
-    <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
-<!--    <div th:replace="~{layouts/main_layout :: content}">-->
 
-    <div style="color:white" class="container">
-        <div class="row" th:if="${success}">
+    <div style="color:white; padding-top: 130px" class="container">
+        <div style=" margin-top: 60px;" class="row" th:if="${success}">
             <div class="col-md-3"></div>
             <div class="col-md-6 alert alert-success" role="alert" >
                 Item Added Successfully!
@@ -29,7 +27,7 @@
             </ul>
         </div>
 
-    <form class="form-horizontal" role="form" method="POST" th:action="@{/add_items}" th:object="${item}" th:if="!${success}">
+    <form  class="form-horizontal" role="form" method="POST" th:action="@{/add_items}" th:object="${item}" th:if="!${success}">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -48,26 +46,6 @@
             </div>
         </div>
 
-<!------------- Title ------------>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label for="title">Name of Item</label>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"></div>
-                        <input type="text"
-                               name="title"
-                               class="form-control"
-                               id="title"
-                               placeholder="What is it?"
-                               th:field="*{title}" required autofocus>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 <!------------- Link ------------>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
@@ -81,7 +59,7 @@
                                name="link"
                                class="form-control"
                                id="link"
-                               placeholder="Link to Item"
+                               placeholder="Find an item anywhere online and paste the link here"
                                th:field="*{link}" required autofocus>
                     </div>
                 </div>
@@ -91,18 +69,19 @@
 <!------------- Description ------------>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="description">Description</label>
+                <label for="description">Notes</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"></div>
-                        <input type="text"
-                               name="description"
-                               class="form-control"
-                               id="description"
-                               placeholder="Give Some Detail"
-                               th:field="*{description}" required autofocus>
+                        <textarea rows="3"
+                                  type="text"
+                                  name="description"
+                                  class="form-control"
+                                  id="description"
+                                  placeholder="Any additional notes about the item? (e.g. color, size, etc.)"
+                                  th:field="*{description}" autofocus></textarea>
                     </div>
                 </div>
             </div>
@@ -111,20 +90,18 @@
 <!------------- Price ------------>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="price">Price</label>
+                <label for="price">Price $</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0" >
                         <div class="input-group-addon" style="width: 2.6rem"></div>
                         <input type="number"
-                               minimum="0.01"
-                               step="0.01"
                                name="price"
                                class="form-control"
                                id="price"
-                               placeholder="$0.00"
-                               th:field="*{price}" required autofocus>
+                               placeholder="100.00 - Please enter 0 if there is no price"
+                               th:field="*{price}" autofocus required>
                     </div>
                 </div>
             </div>
@@ -133,7 +110,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Item</button>
+                <button style="float: right" type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> Add Item</button>
             </div>
         </div>
     </form>

@@ -5,12 +5,11 @@
     <body >
 
     <nav th:replace="~{layouts/main_layout :: nav}"></nav>
-    <div th:replace="~{layouts/main_layout :: jumbotron}"></div>
 
     <div style="color:white" class="container">
 
         <!-- login -->
-        <form class="form-horizontal" role="form" method="POST" th:action="@{/login}">
+        <form style="padding-top: 130px" class="form-horizontal" role="form" method="POST" th:action="@{/login}">
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
@@ -67,7 +66,6 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-success"><i class="fas fa-angle-right"></i> Login</button>
-                    <!-- <a class="btn btn-link" href="forgotPassword.html">Forgot Your Password?</a> -->
                 </div>
                 <div class="col-md-3"></div>
             </div>

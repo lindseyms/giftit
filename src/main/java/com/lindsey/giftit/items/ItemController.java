@@ -1,15 +1,20 @@
 package com.lindsey.giftit.items;
 
-import lombok.Data;
-import org.hibernate.exception.ConstraintViolationException;
+import com.lindsey.giftit.users.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@RestController
-@RequestMapping("/items")
+@Controller
+@Slf4j
+//@RequestMapping("items")
 public class ItemController {
+
     private ItemService itemService;
 
     @Autowired
@@ -17,32 +22,24 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @PostMapping(consumes = "application/json")
-    public ResponseEntity createNewItem(@RequestBody ItemDTO itemDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(itemService.createNewItem(itemDTO));
+    @GetMapping("/add_items")
+    public String addItems(Model model){
+        model.addAttribute("item", new ItemDTO());
+        return "auth/add_items";
     }
 
-//    @GetMapping(value = "/username/{username}", produces = "application/json")
-//    public ResponseEntity getAllItemsByUsername(@PathVariable String username){
-//        return ResponseEntity.status(HttpStatus.OK).body(itemService.getAllItemsByUsername(username));
-//    }
-
-    @GetMapping(value = "/id/{id}", produces = "application/json")
-    public ResponseEntity getItemById(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(itemService.getItemById(id));
+    @PostMapping("/add_items")
+    public String addNewItem(ItemDTO item, RedirectAttributes redirectAttributes){
+        itemService.createNewItem(item);
+        redirectAttributes.addAttribute("id", item.getId()).addFlashAttribute("success", true);
+        return "redirect:/add_items";
     }
 
-    @DeleteMapping(value = "remove/{id}") //figure out if this needs to go here or in the userservice
-    public ResponseEntity removeItem(@PathVariable Long id){
-        itemService.removeItem(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    @PostMapping("/profile/remove/")
+    public String removeItem(@RequestParam("link") String link, RedirectAttributes redirectAttributes){
+        itemService.removeItem(link);
+
+//        redirectAttributes.addAttribute("link", link).addFlashAttribute("success", true);
+        return "redirect:/profile";
     }
-
-    @ExceptionHandler(ConstraintViolationException.class) //this will handle the error if the user does not provide a value that was defined in the entity as being not null
-    public ResponseEntity constraintViolation(ConstraintViolationException ex){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid data provided");
-    }
-
-
-
 }

@@ -1,5 +1,6 @@
 package com.lindsey.giftit.items;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import lombok.*;
 

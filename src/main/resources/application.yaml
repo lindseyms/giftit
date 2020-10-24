@@ -17,6 +17,6 @@ logging:
   level:
     ROOT: DEBUG
 
-#urls:
-#  items: http://iframe.ly/api/iframely?url=...&api_key=1a3f50a29205bf7ec89c4f&_showcaption=true
-#
+urls:
+  url1: iframe.ly/api/iframely?url=
+  url2: &api_key=1a3f50a29205bf7ec89c4f

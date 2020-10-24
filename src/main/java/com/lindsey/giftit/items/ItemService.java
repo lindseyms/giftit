@@ -44,8 +44,8 @@ public class ItemService {
         return dtos;
     }
 
-    public void removeItem(Long id){
-        itemRepository.deleteById(id);
+    public void removeItem(String link){
+        itemRepository.deleteByLink(link);
     }
 
     public UserEntity loggedInUser(){

@@ -5,7 +5,6 @@
 <body>
 
 <nav th:replace="~{layouts/main_layout :: nav}"></nav>
-<!--<div th:replace="~{layouts/main_layout :: jumbotron}"></div>-->
 
 <div  class="row" th:if="${success}">
     <div class="col-md-3"></div>
@@ -31,25 +30,26 @@
             </li>
         </ul>
     </div>
-    <div style="text-align: center; " id="columns">
-        <figure  th:each="itemDTOS : ${itemDTOS}">
+    <div style="text-align: center;" id="columns">
+        <figure  th:each="itemDTOS : ${itemDTOS}" >
             <form th:id="link" class="form-horizontal" role="form" method="POST" th:action="@{profile/remove/(link=${itemDTOS.link})}" th:object="${item}" th:if="!${success}">
                 <button type="submit" class="btn" style="float:right; background-color: transparent; color:#D1C2B5"><i class="far fa-times-circle"></i></button>
             </form>
             <br>
-
-            <div class="iframely-embed">
-                <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a
-                        th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS.link}+'&api_key=1a3f50a29205bf7ec89c4f&iframe=card'}" target="_blank" ></a>
+            <div class="iframely-embed" >
+                <div class="iframely-responsive" style="float: left; height: 140px; padding-bottom: 0;"><a
+                        th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS.link}+'&api_key=1a3f50a29205bf7ec89c4f&iframe=card'}" target="_blank">Default link text here</a>
                 </div>
             </div>
+<!--            <div th:text="${itemDTOS.description}"></div>-->
             <script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
             <p class="price">$<span th:text="${#numbers.formatDecimal(itemDTOS.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
-
         </figure>
     </div>
 
 </div><!-- // profile -->
+
+
 
 </body>
 </html>

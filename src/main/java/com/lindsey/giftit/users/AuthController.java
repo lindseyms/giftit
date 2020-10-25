@@ -1,20 +1,16 @@
 package com.lindsey.giftit.users;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lindsey.giftit.items.ItemDTO;
 import com.lindsey.giftit.items.ItemService;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Slf4j
@@ -59,24 +55,26 @@ public class AuthController {
     }
 
     @GetMapping("/")
-    public String root(Model model){
+    public String root(){
         return "auth/index";
     }
 
     @GetMapping("/home")
-    public String home(Model model){
+    public String home(){
         return "auth/index";
     }
 
     @GetMapping("/search")
-    public String findFriends(Model model, @RequestParam("username") String username){
+    public String findFriends(Model model, @RequestParam("username") String username, Principal principal){
+        UserDTO loggedInUser = userService.findByUsername(principal.getName());
+
         UserDTO friend = userService.findByUsername(username);
         friendId = friend.getId();
         List<ItemDTO> items = itemService.findAllItemsByUserId(friendId);
         model.addAttribute("itemDTOS2", items);
         model.addAttribute("firstName", friend.getFirstName());
 
-        boolean areUsersFriends = userService.areUsersFriends(itemService.loggedInUser().getId(), friendId);
+        boolean areUsersFriends = userService.areUsersFriends(loggedInUser.getId(), friendId);
         if(areUsersFriends){
             model.addAttribute("areUsersFriends", "true");
         }
@@ -88,24 +86,32 @@ public class AuthController {
     }
 
     @PostMapping("/search")
-    public String addFriend(RedirectAttributes redirectAttributes){
-        boolean areUsersFriends = userService.areUsersFriends(itemService.loggedInUser().getId(), friendId);
+    public String addFriend(RedirectAttributes redirectAttributes, Principal principal){
+        UserDTO loggedInUser = userService.findByUsername(principal.getName());
+
+        boolean areUsersFriends = userService.areUsersFriends(loggedInUser.getId(), friendId);
 
         if(areUsersFriends){
-            userService.removeAsFriend(itemService.loggedInUser().getId(), friendId);
+            userService.removeAsFriend(loggedInUser.getId(), friendId);
         }
         else{
-            userService.addFriendById(itemService.loggedInUser().getId(), friendId);
+            userService.addFriendById(loggedInUser.getId(), friendId);
         }
+
         String friendUsername = userService.findById(friendId).getUsername();
         redirectAttributes.addAttribute("username", friendUsername).addFlashAttribute("success", true);
 
         return "redirect:/search";
     }
 
-    @ExceptionHandler(NullPointerException.class) //this will handle the error if the user does not provide a value that was defined in the entity as being not null
+    @ExceptionHandler(NullPointerException.class)
     public String userNotFound(NullPointerException ex){
         return "auth/person_not_found";
+    }
+
+    @ExceptionHandler(IOException.class) //this will handle the error if the user does not provide a value that was defined in the entity as being not null
+    public String pageNotFound(IOException ex){
+        return "auth/error";
     }
 
 

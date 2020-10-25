@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-@RequiredArgsConstructor  //***we changed this from allArgsConstructor
+@RequiredArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor

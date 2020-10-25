@@ -1,79 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layouts/main_layout :: head(title = 'Gift It - Get Stuff You Want')}">
+    <head th:replace="~{layouts/main_layout :: head(title = 'Gift It - Get Stuff You Want')}">
+        <style>
+            #background {
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 50%;
+                background-color: pink;
+                z-index: 1;
+            }
+            #content {
+                position: relative;
+                z-index: 2;
+                padding: 30px;
+                text-align: center;
+                font-weight: bold;
+                font-family: Arial, sans-serif;
+            }
+        </style>
+    </head>
 
-<style>
+    <body style="background-color: white;">
+        <nav th:replace="~{layouts/main_layout :: nav}"></nav>
 
+        <div style="
+        padding-top: 30px;
+        background: #ffffff;
+        color: #ffffff;
+        background-color: #82adfb;
+        font-family: 'Gayathri', sans-serif;
 
-    #background {
-        position: fixed;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 50%;
-        background-color: pink;
-        z-index: 1;
-    }
-
-    #content {
-        position: relative;
-        z-index: 2;
-        padding: 30px;
-        text-align: center;
-        font-weight: bold;
-        font-family: Arial, sans-serif;
-    }
-</style>
-</head>
-
-
-<body style="    background-color: white;">
-<nav th:replace="~{layouts/main_layout :: nav}"></nav>
-<!--<div th:replace="~{layouts/main_layout :: jumbotron}"></div>-->
-<!--    <div th:replace="~{layouts/main_layout :: content}">-->
-<!--<div style="padding-top: 30px;" class="container">-->
-<!--&lt;!&ndash;    <div style="background-color: white; height: 5px; position: relative;">fdfgdgfd</div>&ndash;&gt;-->
-<!--&lt;!&ndash;    <img src="images/NoMoreGuesses.png" style="width: 53%; margin-left: 50px; position: absolute;"/>&ndash;&gt;-->
-<!--    <div style="height:350px; width:800px;"> <img src="images/NoMoreGuesses.png" style="width: 53%; margin-left: 50px;"/></div>-->
-
-
-
-<!--</div>-->
-<div style="
-    padding-top: 30px;
-    background: #ffffff;
-    color: #ffffff;
-    background-color: #82adfb;
-    font-family: 'Gayathri', sans-serif;
-
-    background-image: radial-gradient(#ffffff 1%, transparent 2%),
-    radial-gradient(#fafafa 2%, transparent 1%);
-    /*background-color: #e53935;*/
-    background-position: 0 0, 50px 50px;
-    background-size: 100px 100px;
+        background-image: radial-gradient(#ffffff 1%, transparent 2%),
+        radial-gradient(#fafafa 2%, transparent 1%);
+        /*background-color: #e53935;*/
+        background-position: 0 0, 50px 50px;
+        background-size: 100px 100px;
 
 
-position: fixed;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 74%;
+    position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 74%;
 
-        z-index: 1;">
+            z-index: 1;"></div>
 
-</div>
+        <div style=" position: relative;
+            z-index: 2;
+            padding: 30px;
+            text-align: center;
+            font-weight: bold;
+            font-family: Arial, sans-serif;">
+            <img src="images/NoMoreGuesses.png" style="width: 50%; height: 100%; text-align: center; padding-top: 60px;"/>
+        </div>
 
-<div style=" position: relative;
-        z-index: 2;
-        padding: 30px;
-        text-align: center;
-        font-weight: bold;
-        font-family: Arial, sans-serif;">
-    <img src="images/NoMoreGuesses.png" style="width: 50%; height: 100%; text-align: center; padding-top: 60px;"/>
-</div>
+    </body>
 
-</body>
 
-<!--<div style="position: fixed; left: 0; bottom: 0; height: 30%; width: 100%; background-color: white; color: white; text-align: center">-->
-<!--</div>-->
 </html>

@@ -36,10 +36,9 @@ public class ItemController {
     }
 
     @PostMapping("/profile/remove/")
-    public String removeItem(@RequestParam("link") String link, RedirectAttributes redirectAttributes){
+    public String removeItem(@RequestParam("link") String link){
         itemService.removeItem(link);
 
-//        redirectAttributes.addAttribute("link", link).addFlashAttribute("success", true);
         return "redirect:/profile";
     }
 }

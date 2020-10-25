@@ -66,16 +66,9 @@ public class UserEntity implements UserDetails{
     private Set<RoleEntity> roles = new HashSet<>();
 
     public void addRole(RoleEntity roleEntity){ //**changed from role entity
-       //RoleEntity roleEntity = new RoleEntity(roleDTO.getId(), roleDTO.getNameOfRole());
         roles.add(roleEntity);
     }
 
-//    public void addRoles(Set<RoleDTO> roleDTOs){
-//        for(RoleDTO role : roleDTOs){
-//            RoleEntity roleEntity = mapper.map(role, RoleEntity.class);
-//            roles.add(roleEntity);
-//        }
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

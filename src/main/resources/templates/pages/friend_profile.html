@@ -36,8 +36,9 @@
     <div id="columns">
         <figure class="tooltip2" th:each="itemDTOS : ${itemDTOS}">
             <div class="iframely-embed">
+                <!--API key has been removed for security purposes-->
                 <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a
-                        th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS.link}+'&api_key=8d2078f6a82729891c73e7&iframe=card'}" target="_blank" ></a>
+                        th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS.link}+'&api_key=...&iframe=card'}" target="_blank" ></a>
                 </div>
             </div>
             <div th:if="${itemDTOS.description != ''}">

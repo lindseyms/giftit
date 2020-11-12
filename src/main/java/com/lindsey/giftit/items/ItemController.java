@@ -1,6 +1,5 @@
 package com.lindsey.giftit.items;
 
-import com.lindsey.giftit.users.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,12 +9,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
+
 @Controller
 @Slf4j
-//@RequestMapping("items")
 public class ItemController {
 
-    private ItemService itemService;
+    private final ItemService itemService;
 
     @Autowired
     public ItemController(ItemService itemService){
@@ -25,7 +25,7 @@ public class ItemController {
     @GetMapping("/add_items")
     public String addItems(Model model){
         model.addAttribute("item", new ItemDTO());
-        return "auth/add_items";
+        return "pages/add_items";
     }
 
     @PostMapping("/add_items")
@@ -37,8 +37,8 @@ public class ItemController {
 
     @PostMapping("/profile/remove/")
     public String removeItem(@RequestParam("link") String link){
-        itemService.removeItem(link);
-
+        Long userId = itemService.loggedInUser().getId();
+        itemService.removeItem(link, userId);
         return "redirect:/profile";
     }
 }

@@ -9,12 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter { //this is where we will make sure people have authorization on each endpoint
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImplementation userDetailsService;
 
     @Autowired
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService){
+    public SecurityConfiguration(UserDetailsServiceImplementation userDetailsService){
         this.userDetailsService = userDetailsService;
     }
 

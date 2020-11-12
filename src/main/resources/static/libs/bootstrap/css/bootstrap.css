@@ -4939,31 +4939,13 @@ tbody.collapse.show {
   background-color: #1d2124;
 }
 
-.jumbotron {
-  padding: 2rem 1rem;
-  margin-bottom: 2rem;
-  background-color: #e9ecef;
-  border-radius: 0.3rem;
-}
-
-@media (min-width: 576px) {
-  .jumbotron {
-    padding: 4rem 2rem;
-  }
-}
-
-.jumbotron-fluid {
-  padding-right: 0;
-  padding-left: 0;
-  border-radius: 0;
-}
-
 .alert {
   position: relative;
+  text-align: center;
   padding: 0.75rem 1.25rem;
   margin-bottom: 1rem;
   border: 1px solid transparent;
-  border-radius: 0.25rem;
+  border-radius: 0.2rem;
 }
 
 .alert-heading {
@@ -5001,8 +4983,8 @@ tbody.collapse.show {
 }
 
 .alert-secondary {
-  color: #383d41;
-  background-color: #e2e3e5;
+  color: #ffffff;
+  background-color: #2a4b8a38;
   border-color: #d6d8db;
 }
 
@@ -5015,9 +4997,10 @@ tbody.collapse.show {
 }
 
 .alert-success {
-  color: #155724;
-  background-color: #d4edda;
-  border-color: #c3e6cb;
+  color: #ffffff;
+  background-color: #2a4b8a38;
+  text-align: center;
+  border-color: #1c8e6e87;
 }
 
 .alert-success hr {

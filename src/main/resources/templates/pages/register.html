@@ -4,19 +4,26 @@
     </head>
     <body >
     <nav th:replace="~{layouts/main_layout :: nav}"></nav>
-<!--    <div th:replace="~{layouts/main_layout :: jumbotron}"></div>-->
 
- <div style="color:white" class="container">
+ <div style="color:white; padding-top: 40px" class="container">
+
     <div class="row" th:if="${success}">
         <div class="col-md-3"></div>
-        <div class="col-md-6 alert alert-success" role="alert" >
-            Registration is successful!
+        <div class="col-md-6 alert alert-success" role="alert">
+            Registration successful!<br>
+            <a href="login" style="color: #0339c8">Sign in here</a>
         </div>
         <div class="col-md-3"></div>
     </div>
+     <div class="row" th:if="${failed}">
+         <div class="col-md-3"></div>
+         <div class="col-md-6 alert alert-danger" role="alert" >
+             Username or Email Already Exists!
+         </div>
+         <div class="col-md-3"></div>
+     </div>
 
-    <!-- User Registration form -->
-    <form style="padding-top: 130px" class="form-horizontal" role="form" method="POST" th:action="@{/register}" th:object="${user}" th:if="!${success}">
+    <form style="padding-top: 60px" class="form-horizontal" role="form" method="POST" th:action="@{/register}" th:object="${user}" th:if="!${success}">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -48,7 +55,6 @@
                                id="first-name"
                                placeholder="First Name"
                                th:field="*{firstName}" required autofocus>
-<!--                               required autofocus>-->
                     </div>
                 </div>
             </div>
@@ -67,7 +73,6 @@
                                id="last-name"
                                placeholder="Last Name"
                                th:field="*{lastName}" required autofocus>
-<!--                               required autofocus>-->
                     </div>
                 </div>
             </div>
@@ -98,13 +103,12 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="text"
+                        <input type="email"
                                name="email"
                                class="form-control"
                                id="email"
                                placeholder="you@example.com"
                                th:field="*{email}" required autofocus >
-<!--                               required autofocus>-->
                     </div>
                 </div>
             </div>
@@ -121,9 +125,9 @@
                                name="password"
                                class="form-control"
                                id="password"
+                               oninput="check(this)"
                                placeholder="Password"
                                th:field="*{password}" required autofocus>
-<!--                               required>-->
                     </div>
                 </div>
             </div>
@@ -142,9 +146,9 @@
                                name="confirmPassword"
                                class="form-control"
                                id="confirmPassword"
+                               oninput="check(this)"
                                placeholder="Confirm Password"
                                th:field="*{confirmPassword}" required autofocus>
-<!--                               required>-->
                     </div>
                 </div>
             </div>
@@ -157,5 +161,20 @@
         </div>
     </form>
  </div>
+
+    <script type='text/javascript'>
+        function check() {
+            if (document.getElementById('confirmPassword').value !== document.getElementById('password').value) {
+                document.getElementById('confirmPassword').setCustomValidity('Passwords do not match.');
+            }
+            else if(document.getElementById('password').value !== document.getElementById('confirmPassword').value){
+                document.getElementById('password').setCustomValidity('passwords do not match.');
+            }
+            else {
+                document.getElementById('confirmPassword').setCustomValidity('');
+                document.getElementById('password').setCustomValidity('');
+            }
+        }
+    </script>
     </body>
 </html>

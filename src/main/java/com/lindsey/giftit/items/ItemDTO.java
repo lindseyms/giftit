@@ -13,7 +13,6 @@ public class ItemDTO implements Serializable {
     private Long id;
     private Long userId;
     private String link;
-    private String title;
     private String description;
     private double price;
 

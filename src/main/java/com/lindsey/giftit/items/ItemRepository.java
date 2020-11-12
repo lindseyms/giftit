@@ -14,11 +14,9 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Long> {
 
     List<ItemEntity> findAllItemsByUserId(Long userId);
 
-    ItemEntity findByTitle(String title);
-
     @Modifying(clearAutomatically = true)
     @Transactional
-    @Query(value = "DELETE FROM items WHERE link = :link", nativeQuery = true)
-    void deleteByLink(@Param("link") String link);
+    @Query(value = "DELETE FROM items WHERE link = :link AND user_id = :userId", nativeQuery = true)
+    void deleteByLink(@Param("link") String link, Long userId);
 
 }

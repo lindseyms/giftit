@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layouts/main_layout :: head(title = 'Gift It - Profile')}"></head>
+    <script async src="//cdn.iframe.ly/embed.js" charset="utf-8">
+
+    </script>
+
+    <body>
+
+        <nav th:replace="~{layouts/main_layout :: nav}"></nav>
+
+        <div class="row" th:if="${success}">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 alert alert-success" role="alert">
+                Item successfully removed!
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+
+        <!-- profile -->
+        <div  id="profile" class="container" style="color: white; margin-left: 150px; padding-top: 130px">
+            <div  class="row">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile">My Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add_items">Add Item</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="friends">Friends</a>
+                    </li>
+                </ul>
+            </div>
+
+            <span th:if="${noItemKey == 'noItems'}">
+                <p style="font-size: 40px; padding-top: 40px; text-align: center">You haven't added any items yet!</p>
+                <img src="images/NoMoreGuessesAddAnItem.png" style="width: 35%; height: 100%; margin-left: 400px; "/>
+            </span>
+
+            <div  style="text-align: center;" id="columns" class="outerclass">
+
+                <figure  id="figure" class="tooltip2" th:each="itemDTOS : ${itemDTOS}" >
+                    <form th:id="link" class="form-horizontal" role="form" method="POST" th:action="@{profile/remove/(link=${itemDTOS.link})}" th:object="${item}" th:if="!${success}">
+                        <button type="submit" class="btn" style="float:right; background-color: transparent; color:#D1C2B5"><i class="far fa-times-circle"></i></button>
+                    </form>
+                    <br>
+                    <div  class="iframely-embed" style="display: none" id="iframelyIsEmbedded"  >
+                        <div class="iframely-responsive" style="float: left; height: 140px; padding-bottom: 0;"><a
+                                th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS.link}+'&api_key=8d2078f6a82729891c73e7'}" target="_blank"></a>
+                        </div>
+                    </div>
+
+                    <div th:if="${itemDTOS.description != ''}">
+                        <div id="tooltip" class="tooltiptext2" th:text="${itemDTOS.description}" ></div>
+                    </div>
+
+                    <p class="price">$<span th:text="${#numbers.formatDecimal(itemDTOS.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
+
+                </figure>
+
+            </div>
+
+        </div><!-- //end of profile -->
+
+    </body>
+</html>

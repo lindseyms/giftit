@@ -13,11 +13,11 @@ import java.util.*;
 
 @Slf4j
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
-    private UserRepository userRepository;
+public class UserDetailsServiceImplementation implements UserDetailsService {
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userRepository) {
+    public UserDetailsServiceImplementation(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

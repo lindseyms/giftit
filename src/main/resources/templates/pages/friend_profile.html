@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{layouts/main_layout :: head(title = 'Gift It - Profile')}">
+<head th:replace="~{layouts/main_layout :: head(title = 'Gift It - User Profile')}">
 </head>
 <body>
 
 <nav th:replace="~{layouts/main_layout :: nav}"></nav>
-<!--<div th:replace="~{layouts/main_layout :: jumbotron}"></div>-->
 
 <div  style=" margin-top: 60px;" class="row" th:if="${success}">
     <div class="col-md-3"></div>
@@ -15,6 +14,7 @@
     <div class="col-md-3"></div>
 </div>
 
+<!--Show add friend button if the users are not friends already; show remove friend button if the users are friends-->
 <div style="color:white" class="container">
 <span th:switch="${areUsersFriends}">
     <form style="padding-top: 130px" class="form-horizontal" role="form" method="POST" th:action="@{/search}" th:if="!${success}">
@@ -32,17 +32,19 @@
 
 </span>
 
+    <!--iframely card is displayed for each link that the user has entered-->
     <div id="columns">
-        <figure th:each="itemDTOS2 : ${itemDTOS2}">
-<!--            <a th:href="${itemDTOS2.link}" target="_blank" th:text="${itemDTOS2.title}">Headline</a>-->
-<!--            <p th:text="${itemDTOS2.description}"></p>-->
+        <figure class="tooltip2" th:each="itemDTOS : ${itemDTOS}">
             <div class="iframely-embed">
                 <div class="iframely-responsive" style="height: 140px; padding-bottom: 0;"><a
-                        th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS2.link}+'&api_key=1a3f50a29205bf7ec89c4f&iframe=card'}" target="_blank" ></a>
+                        th:data-iframely-url="@{'//cdn.iframe.ly/api/iframe?url='+${itemDTOS.link}+'&api_key=8d2078f6a82729891c73e7&iframe=card'}" target="_blank" ></a>
                 </div>
             </div>
+            <div th:if="${itemDTOS.description != ''}">
+                <div class="tooltiptext2" th:text="${itemDTOS.description}"></div>
+            </div>
             <script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>
-            <p class="price">$<span th:text="${#numbers.formatDecimal(itemDTOS2.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
+            <p class="price">$<span th:text="${#numbers.formatDecimal(itemDTOS.price, 0, 'COMMA', 2, 'POINT')}">10.00</span></p>
 
         </figure>
     </div>

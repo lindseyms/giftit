@@ -32,10 +32,11 @@ public class UserEntity implements UserDetails{
     private String lastName;
 
     @NonNull
+    @Column(nullable= false, unique = true)
     private String username;
 
     @NonNull
-    @Column(nullable = false, unique = true)//cannot be null, every email needs to be unique
+    @Column(nullable= false, unique = true)
     private String email;
 
     @NonNull
@@ -65,10 +66,9 @@ public class UserEntity implements UserDetails{
     )
     private Set<RoleEntity> roles = new HashSet<>();
 
-    public void addRole(RoleEntity roleEntity){ //**changed from role entity
+    public void addRole(RoleEntity roleEntity){
         roles.add(roleEntity);
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -77,11 +77,6 @@ public class UserEntity implements UserDetails{
             authorities.add(new SimpleGrantedAuthority(role.getNameOfRole()));
         }
         return authorities;
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
     }
 
     @Override

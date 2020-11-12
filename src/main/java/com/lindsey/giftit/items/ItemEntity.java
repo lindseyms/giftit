@@ -1,8 +1,7 @@
 package com.lindsey.giftit.items;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
 import lombok.*;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.persistence.GeneratedValue;
@@ -20,16 +19,11 @@ public class ItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//
-//    @OneToMany
-//    @JoinColumn(name = "id")
-//    private String username;
 
     private Long userId;
 
+    @URL(message = "Please enter a valid link")
     private String link;
-
-    private String title;
 
     private String description;
 

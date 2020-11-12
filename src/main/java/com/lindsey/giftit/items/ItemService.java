@@ -2,32 +2,28 @@ package com.lindsey.giftit.items;
 
 import com.lindsey.giftit.users.UserEntity;
 import ma.glasnost.orika.MapperFacade;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ItemService {
-    private ItemRepository itemRepository;
-    private UserEntity userEntity;
-    private MapperFacade mapper;
+    private final ItemRepository itemRepository;
+    private final MapperFacade mapper;
 
     @Autowired
-    public ItemService(ItemRepository itemRepository, UserEntity userEntity, MapperFacade mapper){
+    public ItemService(ItemRepository itemRepository, MapperFacade mapper){
         this.itemRepository = itemRepository;
-        this.userEntity = userEntity;
         this.mapper = mapper;
     }
 
     public ItemDTO createNewItem(ItemDTO itemDTO){
-        userEntity = loggedInUser();
+        UserEntity userEntity = loggedInUser();
         Long userId = userEntity.getId();
-        ItemEntity entity = new ItemEntity(itemDTO.getId(), userId, itemDTO.getLink(), itemDTO.getTitle(), itemDTO.getDescription(), itemDTO.getPrice());
+        ItemEntity entity = new ItemEntity(itemDTO.getId(), userId, itemDTO.getLink(), itemDTO.getDescription(), itemDTO.getPrice());
         itemRepository.save(entity);
         return itemDTO;
     }
@@ -44,19 +40,14 @@ public class ItemService {
         return dtos;
     }
 
-    public void removeItem(String link){
-        itemRepository.deleteByLink(link);
+    public void removeItem(String link, Long userId){
+        itemRepository.deleteByLink(link, userId);
     }
 
     public UserEntity loggedInUser(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        userEntity = (UserEntity)authentication.getPrincipal();
+        UserEntity userEntity = (UserEntity)authentication.getPrincipal();
         return userEntity;
     }
 
-    public ItemDTO findByTitle(String title){
-        ItemEntity entity = itemRepository.findByTitle(title);
-        ItemDTO dto = mapper.map(entity, ItemDTO.class);
-        return dto;
-    }
 }

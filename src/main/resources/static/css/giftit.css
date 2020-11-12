@@ -37,25 +37,6 @@ body {
 
 }
 
-/* Jumbotron */
-.jumbotron {
-    background: #915fea;
-    color:#ffffff;
-}
-.jumbotron {
-    padding: 80px;
-    padding-bottom: 40px;
-}
-.jumpbotron h2 {
-    font-family: 'Gayathri', sans-serif;
-}
-.jumbotron a, .jumbotron a:visited {
-    color:#ffffff
-}
-.jumbotron p {
-    font-size: 15px;
-}
-
 
 /* Links */
 .position {
@@ -158,4 +139,44 @@ div#columns:hover figure:not(:hover) {
     font-weight: lighter;
     color: #ff884d;
     float: right;
+}
+
+.tooltip2 {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip2 .tooltiptext2 {
+    visibility: hidden;
+    width: 325px;
+    background-color: #383838ba;
+    color: #f9f9f9;
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 19%;
+    margin-left: -60px;
+}
+
+.tooltip2 .tooltiptext2::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip2:hover .tooltiptext2 {
+    visibility: visible;
+}
+
+.inside{
+    background-color: #0c5460;
 }

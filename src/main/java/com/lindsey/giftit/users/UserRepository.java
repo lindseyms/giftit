@@ -32,11 +32,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     @Query(value = "SELECT friend_id FROM users_friends WHERE user_id = :userId", nativeQuery = true)
     List<Long> getAllFriendIds(@Param("userId") Long userId);
 
-    @Modifying(clearAutomatically = true)
-    @Transactional
-    @Query(value = "SELECT friend_id FROM users_friends WHERE user_id = :userId", nativeQuery = true)
-    List<UserEntity> getAllFriendsById(@Param("userId") Long userId);
-
     @Transactional
     @Query(value = "SELECT CASE WHEN EXISTS (SELECT * FROM users_friends WHERE user_id = :userId AND friend_id = :friendId) THEN 'TRUE' ELSE 'FALSE' END", nativeQuery = true)
     boolean areUsersFriends(@Param("userId") Long userId, @Param("friendId") Long friendId);
